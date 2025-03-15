@@ -16,7 +16,18 @@ body {
     background-color: #e7e7e7;
     font-size: inherit;
 }
+#content {
+    display:flex;
+}
+.main-left-col {
+ width: 375px;
+}
+.main-right-col {
 
+}
+.task-display .row-one {
+    display: flex;
+}
 .task-section {
     padding: 8px 0;
     display: flex;
@@ -27,7 +38,6 @@ body {
     padding: 8px 0;
     display: flex;
     align-items: center;
-    width: 350px;
     background-color: #c4c4c4;
     border-radius: 10px;
     border: 2px solid black;
