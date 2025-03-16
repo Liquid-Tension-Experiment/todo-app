@@ -6,6 +6,15 @@
     font-size: 16px;
     line-height: 1.4;
 }
+.btn-nav {
+    padding: 5px 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-left: 2px solid lightgray;
+}
+.btn-nav:last-child {
+    border-right: 2px solid lightgray;
+}
 ul {
     list-style: none;
 }
@@ -26,7 +35,7 @@ body {
     width: 625px;
 }
 
-.project-heading {
+.large-heading {
     font-weight: bold;
     font-size: 1.8rem;
     text-align: center;
@@ -128,6 +137,7 @@ body {
     
 }
 .container {
+    margin-left: 100px;
     width: 1000px;
 }
 .top-nav {
