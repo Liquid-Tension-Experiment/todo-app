@@ -11,6 +11,16 @@ function handleClick(event) {
         console.log('task button clicked')
     }
 
+    if (target.matches('#new-task-btn')) {
+        Display.displayTaskForm();
+        console.log('displaying form');
+    }
+
+    if (target.matches('#btn-cancel')) {
+        Display.displayTasks(TaskManager.getTasks());
+        console.log('hewwo');
+    }
+
     if (target.matches('#btn-projects')) {
         Display.displayProjects(ProjectManager.getProjects());
         console.log('project btn clicked');

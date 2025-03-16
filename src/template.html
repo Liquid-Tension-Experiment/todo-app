@@ -18,24 +18,28 @@
         <div class="container">
             <div id="content">
                 <div class="main-left-col">
-                    <div class="project-list">
-                        <div class="project-heading">Projects</div>
-                        <button type="button" id="btn-new-project">Create New Project</button>
-                        <div class="project-card">
-                            <div class="project-card-top-row">
-                                <div class="project-title">Car Stuff</div>
-                                <div class="count-text">Tasks: 5</div>
-                            </div>
-                            <div class="project-description">This is a list of things that I need to do to my vehicles</div>
+                    <form class="add-task-form">
+                        <legend>New Task</legend>
+                        <label for="new-title">Task Title *</label>
+                        <input type="text" name="new-title" id="new-title" required>
+
+                        <label for="new-description">Task Description *</label>
+                        <textarea name="new-description" id="new-description" rows = "4" required></textarea>
+
+                        <label for="new-priority">Priority *</label>
+                        <select name="new-priority" id="new-priority" required>
+                            <option value="low">Low</option>
+                            <option value="med">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        
+                        <label for="new-due-date">Due Date *</label>
+                        <input type="date" id="new-due-date" name="new-due-date">
+                        <div class="btn-row">
+                            <button type="submit">Submit</button>
+                            <button type="button">Cancel</button>
                         </div>
-                        <div class="project-card">
-                            <div class="project-card-top-row">
-                                <div class="project-title">Odin Project</div>
-                                <div class="count-text">Tasks: 22</div>
-                            </div>
-                            <div class="project-description">steps I need to take to get a good foundation in web development</div>
-                        </div>
-                    </div>                   
+                    </form>        
                 </div>
                 <div class="main-right-col">
                     

@@ -54,7 +54,7 @@ TaskManager.createTask('Buy Windshield Wipers',
 );
 
 
-// Display.displayProjects(projectList);
+Display.displayTasks(TaskManager.getTasks());
 
 
 // display.displayProjects(projectList);

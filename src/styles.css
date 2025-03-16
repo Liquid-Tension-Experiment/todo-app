@@ -136,6 +136,24 @@ body {
     margin-left: auto;
     
 }
+.add-task-form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 5px;
+    align-items: stretch;
+}
+textarea {
+    resize: none;
+    align-self: stretch;
+}
+input[type="date"]{
+    width: 200px;
+}
+
+select{
+    width: 200px;
+}
 .container {
     margin-left: 100px;
     width: 1000px;

@@ -157,6 +157,94 @@ displaySingleProject(project){
 
     this.appendTasks(project.taskList);
 },
+displayTaskForm(){
+    const replaceMe = document.querySelector("#new-task-btn");
+
+    let frm = document.createElement("form");
+    frm.classList.add("add-task-form");
+
+    let legend = document.createElement("legend");
+    legend.textContent = "New Task";
+    frm.appendChild(legend);
+
+    let label = document.createElement("label");
+    label.for ="new-title";
+    label.textContent = "Task Title *";
+    frm.appendChild(label);
+
+    let input = document.createElement("input");
+    input.type = "text";
+    input.name = "new-title";
+    input.id = "new-title";
+    frm.appendChild(input);
+    // input.required = true;
+
+    label = document.createElement("label");
+    label.textContent = "Description *";
+    label.for = "new-description";
+    frm.appendChild(label);
+
+    input = document.createElement("textarea");
+    input.name = "new-description";
+    input.id = "new-description";
+    input.rows = "4";
+    frm.appendChild(input);
+
+    label = document.createElement("label");
+    label.for = "new-priority";
+    label.textContent = "Priority *";
+    frm.appendChild(label);
+
+    let select = document.createElement("select");
+    select.id = "new-priority";
+    select.name = "new-priority";
+    frm.appendChild(select);
+
+    input = document.createElement("option");
+    input.value = "low";
+    input.textContent = "Low";
+    select.appendChild(input);
+
+    input = document.createElement("option");
+    input.value = "med";
+    input.textContent = "Medium";
+    select.appendChild(input);
+    input = document.createElement("option");
+
+    input.value = "high";
+    input.textContent = "High";
+    select.appendChild(input);
+
+    label = document.createElement("label");
+    label.for = "new-due-date";
+    label.textContent = "Due Date *";
+    label.for = "new-due-date";
+    frm.appendChild(label);
+
+    input = document.createElement("input");
+    input.type = "date";
+    input.id = "date";
+    input.name = "new-due-date";
+    input.textContent = "Due Date *";
+    frm.appendChild(input);
+
+    let row = document.createElement("div");
+    row.classList.add("btn-row");
+    frm.appendChild(row);
+
+    let button = document.createElement("button");
+    button.type = "submit";
+    button.textContent = "Submit";
+    row.appendChild(button);
+
+    button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-cancel";
+    button.textContent = "Cancel";
+    row.appendChild(button);
+
+    replaceMe.parentElement.replaceChild(frm, replaceMe);
+},
 displayTasks(tasks){
     const leftCol = document.querySelector('.main-left-col');
     const rightCol = document.querySelector('.main-right-col');
@@ -174,6 +262,7 @@ displayTasks(tasks){
 
     let newtaskbutton = document.createElement("button");
     newtaskbutton.type = "button";
+    newtaskbutton.id = "new-task-btn";
     newtaskbutton.textContent = "New Task";
     taskSection.appendChild(newtaskbutton)
 
