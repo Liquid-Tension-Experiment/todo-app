@@ -76,6 +76,61 @@ export default class Display {
         card.appendChild(text);
         }
     }
+    displaySingleProject(project){
+        const rightCol = document.querySelector('.main-right-col');
+        this.#emptyContent(rightCol);
+
+        let infocol = document.createElement("div");
+        infocol.classList.add("project-info-col");
+        rightCol.appendChild(infocol);
+
+        let toprow = document.createElement("div");
+        toprow.classList.add("top-row");
+        infocol.appendChild(toprow);
+
+        let h2 = document.createElement("h2");
+        h2.textContent = project.title;
+        toprow.appendChild(h2);
+
+        let text = document.createElement("div");
+        text.textContent = `Tasks: ${project.count}`;
+        toprow.appendChild(text);
+    
+        let stats = document.createElement("div");
+        stats.classList.add("project-stats");
+        infocol.append(stats);
+
+        let low=0;
+        let med=0;
+        let high=0;
+        for (const t of project.taskList){
+            if (t.priority == 'low'){
+                low++;
+            }else if (t.priority == 'med'){
+                med++;
+            }else if (t.priority == 'high'){
+                high++;
+            }
+        }
+
+        text = document.createElement("p");
+        text.textContent = `High Priority Tasks: ${high}`;
+        stats.append(text);
+
+        text = document.createElement("p");
+        text.textContent = `Medium Priority Tasks: ${med}`;
+        stats.append(text);
+
+        text = document.createElement("p");
+        text.textContent = `Low Priority Tasks: ${low}`;
+        stats.append(text);
+
+        text = document.createElement("p");
+        text.textContent = project.description;
+        infocol.append(text);
+
+        this.appendTasks(project.taskList);
+    }
     displayTasks(tasks){
         const leftCol = document.querySelector('.main-left-col');
         this.#emptyContent(leftCol);

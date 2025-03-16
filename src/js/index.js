@@ -56,7 +56,7 @@ projectList[0].addTask(tasks[tasks.length-1])
 
 const display = new Display();
 display.displayProjects(projectList);
-display.appendTasks(projectList[0].taskList)
+display.displaySingleProject(projectList[0]);
 // window.display = display;
 // window.tasks = tasks;
 // display.displayTasks(tasks);
