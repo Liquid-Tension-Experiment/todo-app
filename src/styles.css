@@ -20,11 +20,53 @@ body {
     display:flex;
 }
 .main-left-col {
- width: 375px;
+    width: 375px;
 }
 .main-right-col {
 
 }
+.project-heading {
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: center;
+
+}
+.project-list {
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    padding: 5px 10px;
+    gap: 4px;
+}
+.project-card {
+    background-color: #c4c4c4;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+.project-card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dotted gray;
+}
+.project-card .project-description {
+    padding: 10px 0 5px;
+    
+}
+
+.project-card .project-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    
+}
+.project-card .count-text {
+    font-size: 1.1rem;
+}
+
 .task-display .row-one {
     display: flex;
 }

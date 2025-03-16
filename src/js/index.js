@@ -29,9 +29,14 @@ tasks.push(mytodo);
 tasks.push(mytodo2);
 tasks.push(mytodo3);
 
+const projectList = [];
+projectList.push(new Project('Car Stuff',
+    'These are tasks I need to do to our vehicles.',
+))
+
 const display = new Display();
-window.display = display;
-window.tasks = tasks;
-display.displayTasks(tasks);
-display.displaySingleTask(tasks[2]);
-console.log(mytodo);
+// window.display = display;
+// window.tasks = tasks;
+// display.displayTasks(tasks);
+// display.displaySingleTask(tasks[2]);
+// console.log(mytodo);
