@@ -1,8 +1,81 @@
+
+
 export default class Display {
     constructor(){
         this.state = '';
     }
+    appendTasks(tasks){
+        const rightCol = document.querySelector('.main-left-col');
+        let taskSection = document.createElement("div");
+        taskSection.classList.add("task-section");
+        rightCol.appendChild(taskSection);
+        
+        for (const task of tasks){
+            let taskRow = document.createElement("div");
+            taskRow.classList.add("task-row");
+            taskSection.appendChild(taskRow);
 
+            let icon = document.createElement("div");
+            let priorityLevel = this.#getPriorityClassName(task);
+            icon.classList.add("priority-icon", priorityLevel);
+            taskRow.appendChild(icon);
+
+            let title = document.createElement("div");
+            title.classList.add("task-title");
+            title.textContent = task.title;
+            taskRow.appendChild(title);
+
+            let date = document.createElement("div");
+            date.classList.add("task-date");
+            date.textContent = task.dueDate;
+            taskRow.appendChild(date);
+        }
+    }
+
+    displayProjects(projects){
+        const leftCol = document.querySelector('.main-left-col');
+        this.#emptyContent(leftCol);
+
+        let projectlist = document.createElement("div");
+        projectlist.classList.add("project-list");
+        leftCol.appendChild(projectlist);
+
+        let projectheading = document.createElement("div");
+        projectheading.classList.add("project-heading");
+        projectheading.textContent = "Projects";
+        projectlist.appendChild(projectheading);
+
+        let button = document.createElement("button");
+        button.type = "button";
+        button.id = "btn-new-project";
+        button.textContent = "Create New Project";
+        projectlist.appendChild(button);
+
+        for (const project of projects){
+        let card = document.createElement("div");
+        card.classList.add("project-card");
+        projectlist.appendChild(card);
+
+        let toprow = document.createElement("div")
+        toprow.classList.add("project-card-top-row");
+        card.appendChild(toprow);
+
+        let text = document.createElement("div");
+        text.classList.add("project-title");
+        text.textContent = project.title;
+        toprow.appendChild(text);
+
+        text = document.createElement("div");
+        text.classList.add("count-text");
+        text.textContent = `Tasks: ${project.count}`;
+        toprow.appendChild(text);
+
+        text = document.createElement("div");
+        text.classList.add("project-description");
+        text.textContent = project.description;
+        card.appendChild(text);
+        }
+    }
     displayTasks(tasks){
         const leftCol = document.querySelector('.main-left-col');
         this.#emptyContent(leftCol);
