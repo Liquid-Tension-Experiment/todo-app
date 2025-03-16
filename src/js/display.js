@@ -5,10 +5,10 @@ export default class Display {
         this.state = '';
     }
     appendTasks(tasks){
-        const rightCol = document.querySelector('.main-left-col');
+        const projectInfoCol = document.querySelector('.project-info-col');
         let taskSection = document.createElement("div");
         taskSection.classList.add("task-section");
-        rightCol.appendChild(taskSection);
+        projectInfoCol.appendChild(taskSection);
         
         for (const task of tasks){
             let taskRow = document.createElement("div");
