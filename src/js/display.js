@@ -39,6 +39,7 @@ appendTasks(tasks){
     for (const task of tasks){
         let taskRow = document.createElement("div");
         taskRow.classList.add("task-row");
+        taskRow.setAttribute('data-key', task.idNum.toString());
         taskSection.appendChild(taskRow);
 
         let icon = document.createElement("div");
@@ -55,6 +56,12 @@ appendTasks(tasks){
         date.classList.add("task-date");
         date.textContent = task.dueDate;
         taskRow.appendChild(date);
+
+        let button = document.createElement("button");
+        button.type = "button";
+        button.id = "btn-remove-task";
+        button.textContent = "Remove";
+        taskRow.appendChild(button);
     }
 },
 
@@ -178,20 +185,21 @@ displayProjectForm(){
 
     let input = document.createElement("input");
     input.type = "text";
-    input.name = "new-title";
-    input.id = "new-title";
+    input.name = "new-project-title";
+    input.id = "new-project-title";
     frm.appendChild(input);
-    // input.required = true;
+    input.required = true;
 
     label = document.createElement("label");
     label.textContent = "Description *";
-    label.for = "new-description";
+    label.for = "new-project-description";
     frm.appendChild(label);
 
     input = document.createElement("textarea");
-    input.name = "new-description";
-    input.id = "new-description";
+    input.name = "new-project-description";
+    input.id = "new-project-description";
     input.rows = "4";
+    input.required = true;
     frm.appendChild(input);
 
     let row = document.createElement("div");
@@ -200,6 +208,7 @@ displayProjectForm(){
 
     let button = document.createElement("button");
     button.type = "submit";
+    button.id = "btn-submit-project";
     button.textContent = "Submit";
     row.appendChild(button);
 
@@ -210,6 +219,105 @@ displayProjectForm(){
     row.appendChild(button);
 
     replaceMe.append(frm);
+    // replaceMe.parentElement.replaceChild(frm, replaceMe);
+},
+displayEditForm(editTaskElement){
+    const editTaskObj = TaskManager.getTaskByID(editTaskElement.dataset.key);
+    const replaceMe = editTaskElement;
+
+    let frm = document.createElement("form");
+    frm.classList.add("edit-task-form");
+    frm.setAttribute("data-key", editTaskObj.idNum);
+
+    // let legend = document.createElement("legend");
+    // legend.textContent = "New Task";
+    // frm.appendChild(legend);
+
+    let label = document.createElement("label");
+    label.for ="edit-title";
+    label.textContent = "Task Title *";
+    frm.appendChild(label);
+
+    let input = document.createElement("input");
+    input.type = "text";
+    input.name = "edit-title";
+    input.id = "edit-title";
+    input.value = editTaskObj.title;
+    frm.appendChild(input);
+    input.required = true;
+
+    label = document.createElement("label");
+    label.textContent = "Description *";
+    label.for = "edot-description";
+    frm.appendChild(label);
+
+    input = document.createElement("textarea");
+    input.name = "edit-description";
+    input.id = "edit-description";
+    input.value = editTaskObj.description;
+    input.rows = "4";
+    input.required = true;
+    frm.appendChild(input);
+
+    label = document.createElement("label");
+    label.for = "edit-priority";
+    label.textContent = "Priority *";
+    frm.appendChild(label);
+
+    let select = document.createElement("select");
+    select.id = "edit-priority";
+    select.name = "edit-priority";
+    select.required = true;
+    select.value = editTaskObj.value;
+    frm.appendChild(select);
+
+    input = document.createElement("option");
+    input.value = "low";
+    input.textContent = "Low";
+    select.appendChild(input);
+
+    input = document.createElement("option");
+    input.value = "med";
+    input.textContent = "Medium";
+    input.required = true;
+    select.appendChild(input);
+
+    input = document.createElement("option");
+    input.value = "high";
+    input.textContent = "High";
+    select.appendChild(input);
+
+    label = document.createElement("label");
+    label.textContent = "Due Date *";
+    label.for = "edit-due-date";
+    frm.appendChild(label);
+
+    input = document.createElement("input");
+    input.type = "date";
+    input.id = "edit-due-date";
+    input.required = true;
+    input.name = "edit-due-date";
+    input.textContent = "Due Date *";
+    input.value = editTaskObj.dueDate;
+    frm.appendChild(input);
+
+    let row = document.createElement("div");
+    row.classList.add("btn-row");
+    frm.appendChild(row);
+
+    let button = document.createElement("button");
+    button.type = "submit";
+    button.id = "edit-task-submit";
+    button.textContent = "Submit";
+    row.appendChild(button);
+
+    button = document.createElement("button");
+    button.type = "button";
+    button.id = "edit-cancel-task";
+    button.textContent = "Cancel";
+    row.appendChild(button);
+    replaceMe.insertAdjacentElement("afterend", frm);
+
     // replaceMe.parentElement.replaceChild(frm, replaceMe);
 },
 displayTaskForm(){
@@ -354,6 +462,12 @@ displayTasks(tasks){
         date.textContent = task.dueDate;
         taskRow.appendChild(date);
 
+        let button = document.createElement("button");
+        button.type = "button";
+        button.id = "btn-remove-task";
+        button.textContent = "Remove";
+        taskRow.appendChild(button);
+
     }
 },
 unExpandTask(taskElement){
@@ -379,6 +493,12 @@ unExpandTask(taskElement){
     date.classList.add("task-date");
     date.textContent = taskObj.dueDate;
     taskRow.appendChild(date);
+
+    let button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-remove-task";
+    button.textContent = "Remove";
+    taskRow.appendChild(button);
 
     taskElement.parentElement.replaceChild(taskRow, taskElement);
 },
@@ -407,6 +527,12 @@ expandTask(taskElement){
     date.textContent = taskObject.dueDate;
     firstrow.appendChild(date);
 
+    let button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-remove-task";
+    button.textContent = "Remove";
+    firstrow.appendChild(button);
+
     let text = document.createElement("div");
     text.classList.add("project-info-text")
     text.textContent = `Project: ${taskObject.project}`;
@@ -426,16 +552,10 @@ expandTask(taskElement){
     row.classList.add("task-button-row");
     expandedTask.appendChild(row);
 
-    let button = document.createElement("button");
+    button = document.createElement("button");
     button.type = "button";
     button.id = "btn-edit"
     button.textContent = "Edit";
-    row.appendChild(button);
-
-    button = document.createElement("button");
-    button.type = "button";
-    button.id = "btn-remove-task";
-    button.textContent = "Remove";
     row.appendChild(button);
 
     taskElement.parentElement.replaceChild(expandedTask, taskElement);

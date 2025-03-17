@@ -20,13 +20,13 @@ ProjectManager.addProject('Home Stuff',
 );
 TaskManager.createTask('Buy Groceries',
     "I am quite hungry. I should pick up fruit, meat, vegetables and maybe dog food too",
-    '3/17/2025',
+    '2025-03-15',
     'med',
     'Home Stuff'
 );
 TaskManager.createTask('Walk the dog',
     "This dog sure is getting fat.",
-    '3/15/2025',
+    '2025-03-15',
     'high',
 );
 
@@ -34,21 +34,21 @@ TaskManager.createTask('Walk the dog',
 
 TaskManager.createTask('Change oil',
     'Dodge Dakota needs an oil change.',
-    '7/7/2025',
+    '2025-03-15',
     'low',
     'Car Stuff'
 );
 
 TaskManager.createTask('Buy tires',
     'Tread is getting low',
-    '9/7/2025',
+    '2025-03-15',
     'low',
     'Car Stuff'
 );
 
 TaskManager.createTask('Buy Windshield Wipers',
     'I really need these asap',
-    '3/20/2025',
+    '2025-03-15',
     'high',
     'Car Stuff'
 );

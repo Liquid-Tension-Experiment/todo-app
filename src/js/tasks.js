@@ -33,6 +33,13 @@ const TaskManager = (() => {
     let tasks = []; // Private variable (truly hidden)
 
     return {
+        editTask(task, newtitle, newdescription, newdate, newpriority){
+            const editme = tasks.find((t) => t==task);
+            editme.title=newtitle;
+            editme.description = newdescription;
+            editme.dueDate = newdate;
+            editme.priority = newpriority;
+        },
         getTaskByID: ((key)=>{
             let result = tasks.find((task) => {
                 console.log(key)
