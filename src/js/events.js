@@ -23,13 +23,25 @@ function handleClick(event) {
         let task = TaskManager.getTaskByID(key);
     }
     if (target.matches("#add-task-submit"))
-    {
+        {
+        event.preventDefault();
         let f = document.querySelector(".add-task-form");
         if (!f.reportValidity()) {  // Now validation messages show immediately
             return;
         }
         let title = document.querySelector("#new-title").value;
+        let desc = document.querySelector("#new-description").value;
+        let priority = document.querySelector("#new-priority").value;
+        let date = document.querySelector("#new-due-date").value;
+
+        TaskManager.createTask(title, desc, date, priority);
+        document.querySelector(".add-task-form").remove();
+        Display.displayTasks(TaskManager.getTasks());
+
         console.log(title);
+        console.log(desc);
+        console.log(priority);
+        console.log(date);
         event.preventDefault();
     }
     if (target.closest('.expanded-task')) {

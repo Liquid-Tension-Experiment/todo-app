@@ -286,7 +286,7 @@ displayTaskForm(){
 
     input = document.createElement("input");
     input.type = "date";
-    input.id = "date";
+    input.id = "new-due-date";
     input.required = true;
     input.name = "new-due-date";
     input.textContent = "Due Date *";
