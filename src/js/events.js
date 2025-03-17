@@ -16,11 +16,55 @@ function handleClick(event) {
         console.log('displaying form');
     }
 
-    if (target.matches('#btn-cancel')) {
+    if (target.closest('.task-row')) {
+
+        Display.expandTask(target.closest(".task-row"));
+        let key = target.closest(".task-row").dataset.key;
+        let task = TaskManager.getTaskByID(key);
+    }
+    if (target.matches("#add-task-submit"))
+    {
+        let f = document.querySelector(".add-task-form");
+        if (!f.reportValidity()) {  // Now validation messages show immediately
+            return;
+        }
+        let title = document.querySelector("#new-title").value;
+        console.log(title);
+        event.preventDefault();
+    }
+    if (target.closest('.expanded-task')) {
+
+        Display.unExpandTask(target.closest(".expanded-task"));
+        // let key = target.closest(".expanded-task").dataset.key;
+        // let task = TaskManager.getTaskByID(key);
+    }
+    if (target.matches("#btn-remove-task")){
+        let task = target.closest(".expanded-task");
+        event.stopPropagation();
+        ProjectManager.removeTask(TaskManager.getTaskByID(task.dataset.key));
+        TaskManager.removeTask(task.dataset.key);
         Display.displayTasks(TaskManager.getTasks());
-        console.log('hewwo');
+    }
+    if (target.closest('.project-card')) {
+        console.log(target.closest(".task-row"));
+        let key = target.closest(".project-card").dataset.key;
+        let project = ProjectManager.getProjectByID(key);
+        Display.displaySingleProject(project);
+        console.log(key);
     }
 
+
+    if (target.matches('#btn-cancel-task')) {
+        document.querySelector(".add-task-form").remove();
+    }
+    if (target.matches('#btn-cancel-project')) {
+        document.querySelector(".add-project-form").remove();
+
+    }
+    if (target.matches('#btn-new-project')) {
+        Display.displayProjectForm();
+        console.log('hewwo');
+    }
     if (target.matches('#btn-projects')) {
         Display.displayProjects(ProjectManager.getProjects());
         console.log('project btn clicked');

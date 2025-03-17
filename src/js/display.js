@@ -1,3 +1,5 @@
+import { TaskManager } from "./tasks";
+
 function getPriorityString(element)
 {
     if(element.priority == 'high'){
@@ -78,28 +80,29 @@ displayProjects(projects){
     projectlist.appendChild(button);
 
     for (const project of projects){
-    let card = document.createElement("div");
-    card.classList.add("project-card");
-    projectlist.appendChild(card);
+        let card = document.createElement("div");
+        card.classList.add("project-card");
+        card.setAttribute("data-key", project.idNum);
+        projectlist.appendChild(card);
 
-    let toprow = document.createElement("div")
-    toprow.classList.add("project-card-top-row");
-    card.appendChild(toprow);
+        let toprow = document.createElement("div")
+        toprow.classList.add("project-card-top-row");
+        card.appendChild(toprow);
 
-    let text = document.createElement("div");
-    text.classList.add("project-title");
-    text.textContent = project.title;
-    toprow.appendChild(text);
+        let text = document.createElement("div");
+        text.classList.add("project-title");
+        text.textContent = project.title;
+        toprow.appendChild(text);
 
-    text = document.createElement("div");
-    text.classList.add("count-text");
-    text.textContent = `Tasks: ${project.count}`;
-    toprow.appendChild(text);
+        text = document.createElement("div");
+        text.classList.add("count-text");
+        text.textContent = `Tasks: ${project.count}`;
+        toprow.appendChild(text);
 
-    text = document.createElement("div");
-    text.classList.add("project-description");
-    text.textContent = project.description;
-    card.appendChild(text);
+        text = document.createElement("div");
+        text.classList.add("project-description");
+        text.textContent = project.description;
+        card.appendChild(text);
     }
 },
 displaySingleProject(project){
@@ -157,19 +160,20 @@ displaySingleProject(project){
 
     this.appendTasks(project.taskList);
 },
-displayTaskForm(){
-    const replaceMe = document.querySelector("#new-task-btn");
+displayProjectForm(){
+    let test = document.querySelector(".add-project-form");
+    if (test != null){
+        console.log('form already open');
+        return;
+    }
+    const replaceMe = document.querySelector("#btn-new-project");
 
     let frm = document.createElement("form");
-    frm.classList.add("add-task-form");
-
-    let legend = document.createElement("legend");
-    legend.textContent = "New Task";
-    frm.appendChild(legend);
+    frm.classList.add("add-project-form");
 
     let label = document.createElement("label");
-    label.for ="new-title";
-    label.textContent = "Task Title *";
+    label.for ="new-project-title";
+    label.textContent = "Project Title *";
     frm.appendChild(label);
 
     let input = document.createElement("input");
@@ -190,44 +194,6 @@ displayTaskForm(){
     input.rows = "4";
     frm.appendChild(input);
 
-    label = document.createElement("label");
-    label.for = "new-priority";
-    label.textContent = "Priority *";
-    frm.appendChild(label);
-
-    let select = document.createElement("select");
-    select.id = "new-priority";
-    select.name = "new-priority";
-    frm.appendChild(select);
-
-    input = document.createElement("option");
-    input.value = "low";
-    input.textContent = "Low";
-    select.appendChild(input);
-
-    input = document.createElement("option");
-    input.value = "med";
-    input.textContent = "Medium";
-    select.appendChild(input);
-    input = document.createElement("option");
-
-    input.value = "high";
-    input.textContent = "High";
-    select.appendChild(input);
-
-    label = document.createElement("label");
-    label.for = "new-due-date";
-    label.textContent = "Due Date *";
-    label.for = "new-due-date";
-    frm.appendChild(label);
-
-    input = document.createElement("input");
-    input.type = "date";
-    input.id = "date";
-    input.name = "new-due-date";
-    input.textContent = "Due Date *";
-    frm.appendChild(input);
-
     let row = document.createElement("div");
     row.classList.add("btn-row");
     frm.appendChild(row);
@@ -239,11 +205,111 @@ displayTaskForm(){
 
     button = document.createElement("button");
     button.type = "button";
-    button.id = "btn-cancel";
+    button.id = "btn-cancel-project";
     button.textContent = "Cancel";
     row.appendChild(button);
 
-    replaceMe.parentElement.replaceChild(frm, replaceMe);
+    replaceMe.append(frm);
+    // replaceMe.parentElement.replaceChild(frm, replaceMe);
+},
+displayTaskForm(){
+    
+    let test = document.querySelector(".add-task-form");
+    if (test != null){
+        console.log('form already open');
+        return;
+    }
+    const replaceMe = document.querySelector("#new-task-btn");
+
+    let frm = document.createElement("form");
+    frm.classList.add("add-task-form");
+
+    // let legend = document.createElement("legend");
+    // legend.textContent = "New Task";
+    // frm.appendChild(legend);
+
+    let label = document.createElement("label");
+    label.for ="new-title";
+    label.textContent = "Task Title *";
+    frm.appendChild(label);
+
+    let input = document.createElement("input");
+    input.type = "text";
+    input.name = "new-title";
+    input.id = "new-title";
+    frm.appendChild(input);
+    input.required = true;
+
+    label = document.createElement("label");
+    label.textContent = "Description *";
+    label.for = "new-description";
+    frm.appendChild(label);
+
+    input = document.createElement("textarea");
+    input.name = "new-description";
+    input.id = "new-description";
+    input.rows = "4";
+    input.required = true;
+    frm.appendChild(input);
+
+    label = document.createElement("label");
+    label.for = "new-priority";
+    label.textContent = "Priority *";
+    frm.appendChild(label);
+
+    let select = document.createElement("select");
+    select.id = "new-priority";
+    select.name = "new-priority";
+    select.required = true;
+    frm.appendChild(select);
+
+    input = document.createElement("option");
+    input.value = "low";
+    input.textContent = "Low";
+    select.appendChild(input);
+
+    input = document.createElement("option");
+    input.value = "med";
+    input.textContent = "Medium";
+    input.required = true;
+    select.appendChild(input);
+
+    input = document.createElement("option");
+    input.value = "high";
+    input.textContent = "High";
+    select.appendChild(input);
+
+    label = document.createElement("label");
+    label.textContent = "Due Date *";
+    label.for = "new-due-date";
+    frm.appendChild(label);
+
+    input = document.createElement("input");
+    input.type = "date";
+    input.id = "date";
+    input.required = true;
+    input.name = "new-due-date";
+    input.textContent = "Due Date *";
+    frm.appendChild(input);
+
+    let row = document.createElement("div");
+    row.classList.add("btn-row");
+    frm.appendChild(row);
+
+    let button = document.createElement("button");
+    button.type = "submit";
+    button.id = "add-task-submit";
+    button.textContent = "Submit";
+    row.appendChild(button);
+
+    button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-cancel-task";
+    button.textContent = "Cancel";
+    row.appendChild(button);
+    replaceMe.appendChild(frm);
+
+    // replaceMe.parentElement.replaceChild(frm, replaceMe);
 },
 displayTasks(tasks){
     const leftCol = document.querySelector('.main-left-col');
@@ -270,6 +336,7 @@ displayTasks(tasks){
     for (const task of tasks){
         let taskRow = document.createElement("div");
         taskRow.classList.add("task-row");
+        taskRow.setAttribute('data-key', task.idNum.toString());
         taskSection.appendChild(taskRow);
 
         let icon = document.createElement("div");
@@ -288,6 +355,91 @@ displayTasks(tasks){
         taskRow.appendChild(date);
 
     }
+},
+unExpandTask(taskElement){
+    
+    let taskObj = TaskManager.getTaskByID(taskElement.dataset.key);
+    console.log(taskElement);
+    console.log(taskObj);
+    let taskRow = document.createElement("div");
+    taskRow.classList.add("task-row");
+    taskRow.setAttribute("data-key", taskObj.idNum);
+
+    let icon = document.createElement("div");
+    let priorityLevel = getPriorityClassName(taskObj);
+    icon.classList.add("priority-icon", priorityLevel);
+    taskRow.appendChild(icon);
+
+    let title = document.createElement("div");
+    title.classList.add("task-title");
+    title.textContent = taskObj.title;
+    taskRow.appendChild(title);
+
+    let date = document.createElement("div");
+    date.classList.add("task-date");
+    date.textContent = taskObj.dueDate;
+    taskRow.appendChild(date);
+
+    taskElement.parentElement.replaceChild(taskRow, taskElement);
+},
+expandTask(taskElement){
+    const taskObject = TaskManager.getTaskByID(taskElement.dataset.key);
+    let expandedTask = document.createElement("div");
+    expandedTask.setAttribute("data-key", taskElement.dataset.key);
+    expandedTask.classList.add("expanded-task");
+
+    let firstrow = document.createElement("div");
+    firstrow.classList.add("expanded-top-row");
+    expandedTask.appendChild(firstrow);
+
+    let icon = document.createElement("div");
+    let priorityLevel = getPriorityClassName(taskObject);
+    icon.classList.add("priority-icon", priorityLevel);
+    firstrow.appendChild(icon);
+
+    let title = document.createElement("div");
+    title.classList.add("task-title");
+    title.textContent = taskObject.title;
+    firstrow.appendChild(title);
+
+    let date = document.createElement("div");
+    date.classList.add("task-date");
+    date.textContent = taskObject.dueDate;
+    firstrow.appendChild(date);
+
+    let text = document.createElement("div");
+    text.classList.add("project-info-text")
+    text.textContent = `Project: ${taskObject.project}`;
+    expandedTask.append(text);
+
+    text = document.createElement("div");
+    text.textContent = `Description`;
+    text.classList.add("description-label")
+    expandedTask.append(text);
+
+    text = document.createElement("div");
+    text.classList.add("description-text");
+    text.textContent = taskObject.description;
+    expandedTask.append(text);
+
+    let row = document.createElement("div");
+    row.classList.add("task-button-row");
+    expandedTask.appendChild(row);
+
+    let button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-edit"
+    button.textContent = "Edit";
+    row.appendChild(button);
+
+    button = document.createElement("button");
+    button.type = "button";
+    button.id = "btn-remove-task";
+    button.textContent = "Remove";
+    row.appendChild(button);
+
+    taskElement.parentElement.replaceChild(expandedTask, taskElement);
+
 },
 displaySingleTask(task){
     const rightCol = document.querySelector('.main-right-col');
@@ -308,7 +460,7 @@ displaySingleTask(task){
 
     let pText = document.createElement("div");
     title.classList.add("priority-text");
-    pText.textContent = PriorityString(task);
+    pText.textContent = getPriorityString(task);
     row.append(pText);
 
     let icon = document.createElement("div");

@@ -6,7 +6,7 @@ class Task {
         this.description = desc;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.idNum = crypto.randomUUID();
+        this.idNum = crypto.randomUUID().toString();
         this.project = project;
         if (project!=''){
             this.assignToProject(this);
@@ -33,6 +33,15 @@ const TaskManager = (() => {
     let tasks = []; // Private variable (truly hidden)
 
     return {
+        getTaskByID: ((key)=>{
+            let result = tasks.find((task) => {
+                console.log(key)
+                console.log(task.idNum)
+                console.log(task.idNum == key)
+                return task.idNum == key;
+            })
+            return result;
+        }),
         getTasks: () => tasks,
         createTask: (title,
             description,
@@ -47,6 +56,14 @@ const TaskManager = (() => {
             project,
         )),
         addTask: (task) => tasks.push(task),
+        removeTask: (targetKey) => {
+            let index = tasks.findIndex((t) => {
+                return t.idNum == targetKey;
+            });
+            tasks.splice(index, 1);
+
+            let dog = 0;
+        },
     };
 })();
 
